@@ -106,30 +106,56 @@
   {/if}
 </div>
 
+<footer class="footer">
+  <p>Página creada por Ortiz Daiana, Higonet Juan Ignacio, Mercado Martin, Sola Amparo</p>
+</footer>
+
 <style>
-  /* Copiamos los estilos de index.css y App.css aquí */
+  /* Tema Dark - Variables de colores */
+  :root {
+    --bg-primary: #1e1f22;
+    --bg-secondary: #2b2d31;
+    --bg-tertiary: #383a40;
+    --text-primary: #f2f3f5;
+    --text-secondary: #b5bac1;
+    --accent-blue: #4dabf7;
+    --accent-blue-hover: #339af0;
+    --accent-green: #51cf66;
+    --accent-green-hover: #40c057;
+    --accent-red: #ff6b6b;
+    --accent-red-hover: #fa5252;
+    --border-color: #404249;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 6px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Estilos globales para el tema dark */
   :global(body) {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f4f4f4;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
   }
 
   .app-container {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px 40px;
-    background-color: #ffffff;
+    background-color: var(--bg-secondary);
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
   }
 
   .app-title {
     text-align: center;
-    color: #2c3e50;
+    color: var(--text-primary);
     font-size: 2.5rem;
     margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .top-controls {
@@ -154,29 +180,67 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
   }
 
   .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-hover);
   }
 
-  .btn-primary { background-color: #3498db; color: white; }
-  .btn-secondary { background-color: #ecf0f1; color: #34495e; }
-  .btn-danger { background-color: #e74c3c; color: white; }
-  .btn-success { background-color: #2ecc71; color: white; }
+  .btn-primary { 
+    background-color: var(--accent-blue); 
+    color: white;
+    border-color: var(--accent-blue);
+  }
+  .btn-primary:hover { 
+    background-color: var(--accent-blue-hover);
+    border-color: var(--accent-blue-hover);
+  }
+
+  .btn-secondary { 
+    background-color: var(--bg-tertiary); 
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+  .btn-secondary:hover { 
+    background-color: #4a4d55;
+    border-color: #5a5d65;
+  }
+
+  .btn-danger { 
+    background-color: var(--accent-red); 
+    color: white;
+    border-color: var(--accent-red);
+  }
+  .btn-danger:hover { 
+    background-color: var(--accent-red-hover);
+    border-color: var(--accent-red-hover);
+  }
+
+  .btn-success { 
+    background-color: var(--accent-green); 
+    color: white;
+    border-color: var(--accent-green);
+  }
+  .btn-success:hover { 
+    background-color: var(--accent-green-hover);
+    border-color: var(--accent-green-hover);
+  }
 
   hr {
     border: none;
-    border-top: 1px solid #ecf0f1;
+    border-top: 1px solid var(--border-color);
     margin-bottom: 25px;
+    opacity: 0.6;
   }
 
   .notes-list h2 {
-    color: #34495e;
-    border-bottom: 2px solid #3498db;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--accent-blue);
     padding-bottom: 10px;
     margin-bottom: 20px;
+    font-weight: 600;
   }
 
   .notes-list ul {
@@ -189,18 +253,70 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     margin-bottom: 15px;
-    transition: box-shadow 0.2s;
+    transition: all 0.2s;
   }
 
   .note-item:hover {
-    box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-hover);
+    border-color: #5a5d65;
+    transform: translateY(-1px);
   }
 
-  .note-content { flex-grow: 1; }
-  .note-content p { margin: 0; font-size: 16px; color: #333; }
-  .note-actions { display: flex; gap: 10px; flex-shrink: 0; margin-left: 20px; }
+  .note-content { 
+    flex-grow: 1; 
+  }
+  
+  .note-content p { 
+    margin: 0; 
+    font-size: 16px; 
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  
+  .note-actions { 
+    display: flex; 
+    gap: 10px; 
+    flex-shrink: 0; 
+    margin-left: 20px; 
+  }
+
+  /* Scrollbar personalizado para el tema dark */
+  :global(::-webkit-scrollbar) {
+    width: 8px;
+  }
+
+  :global(::-webkit-scrollbar-track) {
+    background: var(--bg-primary);
+  }
+
+  :global(::-webkit-scrollbar-thumb) {
+    background: var(--border-color);
+    border-radius: 4px;
+  }
+
+  :global(::-webkit-scrollbar-thumb:hover) {
+    background: #5a5d65;
+  }
+
+  /* Footer */
+  .footer {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 0px;
+    padding: 20px 0;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .footer p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
 </style>

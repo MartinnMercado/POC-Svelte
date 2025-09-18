@@ -8,33 +8,30 @@
   // El despachador de eventos para comunicarnos con App.svelte
   const dispatch = createEventDispatcher();
 
-  // Estado local del formulario
-  let title = '';
-  let description = '';
+  // Estado local del formulario - cambiamos title por content para coincidir con App.svelte
+  let content = '';
   
   // Usamos una declaración reactiva ($:) en lugar de onMount.
   // Es más "Svelte" y reacciona si la prop `taskToEdit` cambiara en el futuro.
   $: {
     if (taskToEdit) {
-      title = taskToEdit.title;
-      description = taskToEdit.description;
+      // Verificamos si existe el campo content, si no, usamos title o un string vacío
+      content = taskToEdit.content || taskToEdit.title || '';
     } else {
-      title = '';
-      description = '';
+      content = '';
     }
   }
 
   function handleSubmit() {
-    if (title.trim() === '') {
-      alert('El título no puede estar vacío.');
+    if (content.trim() === '') {
+      alert('El contenido no puede estar vacío.');
       return;
     }
 
     // Aseguramos que el objeto que enviamos coincida con la estructura en App.svelte
     const taskData = {
       id: taskToEdit ? taskToEdit.id : null,
-      title: title,
-      description: description,
+      content: content.trim(), // Cambiamos title por content
       completed: taskToEdit ? taskToEdit.completed : false
     };
 
@@ -48,23 +45,13 @@
       <h2>{taskToEdit ? 'Editar Tarea' : 'Crear Nueva Tarea'}</h2>
       
       <div class="form-group">
-        <label for="title">Título</label>
-        <input 
-          id="title"
-          type="text"
-          bind:value={title}
-          placeholder="Ej: Comprar leche"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="description">Descripción</label>
+        <label for="content">Contenido de la tarea</label>
         <textarea
-          id="description"
-          bind:value={description}
-          placeholder="Detalles adicionales (opcional)..."
+          id="content"
+          bind:value={content}
+          placeholder="Ej: Comprar leche, estudiar para el examen..."
           rows="4"
+          required
         ></textarea>
       </div>
       
@@ -77,16 +64,16 @@
 </div>
 
 <style>
-  /* Paleta de colores y variables para un diseño consistente */
+  /* Paleta de colores y variables para un diseño consistente - Tema Dark */
   :root {
-    --primary-color: #007bff;
-    --primary-hover: #0056b3;
-    --secondary-bg: #f0f0f0;
-    --secondary-hover: #dcdcdc;
-    --border-color: #ccc;
-    --text-color: #333;
-    --modal-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    --focus-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    --primary-color: #4dabf7;
+    --primary-hover: #339af0;
+    --secondary-bg: #495057;
+    --secondary-hover: #6c757d;
+    --border-color: #6c757d;
+    --text-color: #f8f9fa;
+    --modal-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    --focus-shadow: 0 0 0 3px rgba(77, 171, 247, 0.25);
   }
 
   .modal-backdrop {
@@ -95,7 +82,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,12 +90,13 @@
   }
 
   .modal-content {
-    background-color: white;
+    background-color: #2b2d31;
     padding: 2rem;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
     box-shadow: var(--modal-shadow);
+    border: 1px solid #404249;
   }
 
   h2 {
@@ -129,7 +117,7 @@
     font-size: 0.9em;
   }
 
-  input, textarea {
+  textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 0.75rem;
@@ -138,17 +126,20 @@
     font-family: inherit;
     font-size: 1rem;
     transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+    background-color: #404249;
+    color: var(--text-color);
+  }
+
+  textarea::placeholder {
+    color: #adb5bd;
   }
 
   /* Efecto de foco para mejorar la accesibilidad */
-  input:focus, textarea:focus {
+  textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: var(--focus-shadow);
-  }
-
-  textarea {
-    resize: vertical;
   }
 
   .modal-actions {
