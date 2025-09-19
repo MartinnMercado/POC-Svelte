@@ -1,8 +1,7 @@
 <script>
   import TaskModal from './components/TaskModal.svelte';
 
-  // --- ESTADO INICIAL (SIN BACKEND) ---
-  // Reemplazamos los datos que venían de la API con un array local.
+
   let tasks = [
     { id: 1, content: 'Configurar el proyecto Svelte', completed: true },
     { id: 2, content: 'Crear el componente de la lista de tareas', completed: true },
@@ -10,12 +9,12 @@
     { id: 4, content: 'Tomar un café ☕', completed: false }
   ];
 
-  // Estado para controlar la visibilidad y los filtros
+
   let showCompleted = false;
   let isModalOpen = false;
   let taskToEdit = null;
 
-  // --- MANEJADORES DE EVENTOS ---
+
   function openCreateModal() {
     taskToEdit = null;
     isModalOpen = true;
@@ -36,22 +35,20 @@
     tasks = tasks.map(t => t.id === taskId ? { ...t, completed: newStatus } : t);
   }
 
-  // Función que se ejecuta cuando el modal guarda una tarea
+ 
   function handleSaveTask(event) {
     const savedTask = event.detail;
 
-    if (savedTask.id) { // Si tiene ID, es una edición
+    if (savedTask.id) { 
       tasks = tasks.map(t => t.id === savedTask.id ? savedTask : t);
-    } else { // Si no, es una creación
-      const newTask = { ...savedTask, id: Date.now() }; // Asignamos un ID único
+    } else { 
+      const newTask = { ...savedTask, id: Date.now() }; 
       tasks = [...tasks, newTask];
     }
     
-    isModalOpen = false; // Cerramos el modal
+    isModalOpen = false; 
   }
 
-  // --- PROPIEDAD COMPUTADA ---
-  // Esta variable se recalcula automáticamente si `tasks` o `showCompleted` cambian.
   $: filteredTasks = tasks.filter(task => task.completed === showCompleted);
 
 </script>
@@ -111,7 +108,7 @@
 </footer>
 
 <style>
-  /* Tema Dark - Variables de colores */
+  
   :root {
     --bg-primary: #1e1f22;
     --bg-secondary: #2b2d31;
@@ -129,7 +126,7 @@
     --shadow-hover: 0 6px 25px rgba(0, 0, 0, 0.4);
   }
 
-  /* Estilos globales para el tema dark */
+
   :global(body) {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -284,7 +281,7 @@
     margin-left: 20px; 
   }
 
-  /* Scrollbar personalizado para el tema dark */
+
   :global(::-webkit-scrollbar) {
     width: 8px;
   }
@@ -302,7 +299,7 @@
     background: #5a5d65;
   }
 
-  /* Footer */
+ 
   .footer {
     background-color: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
